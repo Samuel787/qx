@@ -76,7 +76,8 @@ func processQuery(userQuery string) {
 	// Call GROQ API to get the command
 	command, err := callGroqAPI(userQuery)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		// Print error directly (to stdout for proper ANSI color rendering)
+		fmt.Print(err)
 		os.Exit(1)
 	}
 

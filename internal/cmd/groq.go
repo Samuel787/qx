@@ -36,7 +36,7 @@ type GroqError struct {
 func callGroqAPI(userQuery string) (string, error) {
 	apiKey := os.Getenv("QX_GROQ_KEY")
 	if apiKey == "" {
-		return "", fmt.Errorf("QX_GROQ_KEY environment variable is not set. Please run 'qx set-key' first")
+		return "", fmt.Errorf("\033[33m⚠️  GROQ API Key Not Found\033[0m\n\nTo use qx, you need a GROQ API key. The good news: it's free with a generous tier!\n\n\033[1m1. Get your API key:\033[0m\n   Visit: https://console.groq.com\n   - Sign up (free, no credit card needed)\n   - Go to API Keys section\n   - Create a new key\n\n\033[1m2. Set the API key:\033[0m\n   qx set-key <your-api-key>\n\n\033[36m💡 Free Tier: 30 requests/min, unlimited usage\033[0m\n")
 	}
 
 	systemPrompt := `You are a helpful CLI command assistant. When a user asks for a command, respond with ONLY the command itself, without any explanation or markdown formatting. For example:
