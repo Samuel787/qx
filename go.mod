@@ -1,4 +1,4 @@
-module github.com/yourusername/ct
+module github.com/yourusername/qx
 
 go 1.21
 

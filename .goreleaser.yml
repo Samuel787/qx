@@ -1,4 +1,4 @@
-project_name: ct
+project_name: qx
 before:
   hooks:
     - go mod download
@@ -30,7 +30,7 @@ brews:
     commit_author:
       name: goreleaserbot
       email: bot@goreleaser.com
-    homepage: "https://github.com/yourusername/ct"
+    homepage: "https://github.com/yourusername/qx"
     description: "A command-line tool"
     license: "MIT"
 

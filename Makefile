@@ -1,6 +1,6 @@
 .PHONY: build install dev clean help
 
-BINARY_NAME=ct
+BINARY_NAME=qx
 VERSION?=0.1.0
 LDFLAGS=-ldflags "-X main.version=$(VERSION)"
 
@@ -13,13 +13,13 @@ help:
 	@echo "  deps     - Download and tidy dependencies"
 
 build:
-	go build $(LDFLAGS) -o bin/$(BINARY_NAME) ./cmd/ct
+	go build $(LDFLAGS) -o bin/$(BINARY_NAME) ./cmd/qx
 
 install: build
 	cp bin/$(BINARY_NAME) /usr/local/bin/$(BINARY_NAME)
 
 dev:
-	go run $(LDFLAGS) ./cmd/ct/main.go
+	go run $(LDFLAGS) ./cmd/qx/main.go
 
 clean:
 	rm -rf bin/

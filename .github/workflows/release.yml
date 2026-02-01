@@ -30,9 +30,9 @@ jobs:
           GOARCH: ${{ matrix.goarch }}
         run: |
           mkdir -p dist
-          go build -o dist/ct-${{ matrix.goos }}-${{ matrix.goarch }} .
+          go build -o dist/qx-${{ matrix.goos }}-${{ matrix.goarch }} .
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/ct-*
+          files: dist/qx-*

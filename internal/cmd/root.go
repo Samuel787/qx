@@ -8,12 +8,12 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "ct",
+	Use:   "qx",
 	Short: "Terminal command prefiller",
-	Long:  "ct prefills your terminal with commonly used commands",
+	Long:  "qx prefills your terminal with commonly used commands",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("ct v" + Version)
-		fmt.Println("Run 'ct --help' for usage information")
+		fmt.Println("qx v" + Version)
+		fmt.Println("Run 'qx --help' for usage information")
 	},
 }
 
@@ -27,5 +27,5 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.Flags().BoolP("help", "h", false, "help for ct")
+	rootCmd.Flags().BoolP("help", "h", false, "help for qx")
 }

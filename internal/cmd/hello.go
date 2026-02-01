@@ -4,38 +4,32 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
 
 var helloCmd = &cobra.Command{
 	Use:   "hello",
-	Short: "Prefill terminal with echo hello",
-	Long:  "Prefill the terminal cursor with 'echo \"hello\"'",
+	Short: "Copy text to clipboard",
+	Long:  "Copy provided text to clipboard and display it",
 	Run: func(cmd *cobra.Command, args []string) {
-		prefillTerminal(`echo "hello"`)
+		if len(args) == 0 {
+			fmt.Fprintf(os.Stderr, "Error: Please provide text to copy\n")
+			os.Exit(1)
+		}
+		text := strings.Join(args, " ")
+		copyToClipboard(text)
+		// fmt.Printf(">>[copied to clipboard>> %s\n", text)
+		fmt.Printf("\033[32m✅ Copied to clipboard:\033[0m %s", text)
 	},
 }
 
-func prefillTerminal(text string) {
-	// Try iTerm2 first
-	iTermScript := `tell application "iTerm" to activate
-tell application "System Events"
-	keystroke "` + text + `"
-end tell`
-
-	if err := exec.Command("osascript", "-e", iTermScript).Run(); err == nil {
-		return
-	}
-
-	// Fall back to Terminal.app
-	terminalScript := `tell application "Terminal" to activate
-tell application "System Events"
-	keystroke "` + text + `"
-end tell`
-
-	if err := exec.Command("osascript", "-e", terminalScript).Run(); err != nil {
-		fmt.Fprintf(os.Stderr, "Error: Could not prefill terminal. Make sure you're using Terminal.app or iTerm2.\n")
+func copyToClipboard(text string) {
+	cmd := exec.Command("pbcopy")
+	cmd.Stdin = strings.NewReader(text)
+	if err := cmd.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "Error: Could not copy to clipboard\n")
 		os.Exit(1)
 	}
 }
