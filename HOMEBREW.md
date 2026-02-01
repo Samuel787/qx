@@ -1,6 +1,6 @@
 # Publishing to Homebrew
 
-This guide explains how to publish the `ct` CLI tool to Homebrew.
+This guide explains how to publish the `qx` CLI tool to Homebrew.
 
 ## Step 1: Create a Homebrew Tap Repository
 
@@ -13,38 +13,38 @@ In your `homebrew-tap` repository, create the directory structure and formula fi
 
 ```bash
 mkdir -p Formula
-cat > Formula/ct.rb << 'EOF'
-class Ct < Formula
+cat > Formula/qx.rb << 'EOF'
+class Qx < Formula
   desc "A command-line tool"
-  homepage "https://github.com/yourusername/ct"
+  homepage "https://github.com/yourusername/qx"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/yourusername/ct/releases/download/v0.1.0/ct_0.1.0_darwin_arm64.tar.gz"
+      url "https://github.com/yourusername/qx/releases/download/v0.1.0/qx_0.1.0_darwin_arm64.tar.gz"
       sha256 "REPLACE_WITH_ARM64_SHA256"
     else
-      url "https://github.com/yourusername/ct/releases/download/v0.1.0/ct_0.1.0_darwin_amd64.tar.gz"
+      url "https://github.com/yourusername/qx/releases/download/v0.1.0/qx_0.1.0_darwin_amd64.tar.gz"
       sha256 "REPLACE_WITH_AMD64_SHA256"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/yourusername/ct/releases/download/v0.1.0/ct_0.1.0_linux_arm64.tar.gz"
+      url "https://github.com/yourusername/qx/releases/download/v0.1.0/qx_0.1.0_linux_arm64.tar.gz"
       sha256 "REPLACE_WITH_LINUX_ARM64_SHA256"
     else
-      url "https://github.com/yourusername/ct/releases/download/v0.1.0/ct_0.1.0_linux_amd64.tar.gz"
+      url "https://github.com/yourusername/qx/releases/download/v0.1.0/qx_0.1.0_linux_amd64.tar.gz"
       sha256 "REPLACE_WITH_LINUX_AMD64_SHA256"
     end
   end
 
   def install
-    bin.install "ct"
+    bin.install "qx"
   end
 
   test do
-    system "#{bin}/ct", "--help"
+    system "#{bin}/qx", "--help"
   end
 end
 EOF
@@ -82,7 +82,7 @@ Once everything is set up, users can install with:
 
 ```bash
 brew tap yourusername/tap
-brew install ct
+brew install qx
 ```
 
 ## For More Information
