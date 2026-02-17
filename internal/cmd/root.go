@@ -63,6 +63,12 @@ func Execute() {
 	// Try to execute as normal first
 	args := os.Args[1:]
 
+	// Handle version flags
+	if len(args) > 0 && (args[0] == "--version" || args[0] == "-version" || args[0] == "-v" || args[0] == "v") {
+		fmt.Println("qx v" + Version)
+		return
+	}
+
 	// Handle --raw or -r flag at the beginning
 	if len(args) > 0 && (args[0] == "--raw" || args[0] == "-r") {
 		// Check if there are more arguments after the flag
