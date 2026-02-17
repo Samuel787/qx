@@ -63,9 +63,21 @@ func Execute() {
 	// Try to execute as normal first
 	args := os.Args[1:]
 
+	// Handle --raw or -r flag at the beginning
+	if len(args) > 0 && (args[0] == "--raw" || args[0] == "-r") {
+		// Check if there are more arguments after the flag
+		if len(args) > 1 {
+			// Treat the rest as a query
+			userQuery := strings.Join(args[1:], " ")
+			processQueryWithRaw(userQuery)
+			return
+		}
+		// If no query provided with --raw, fall through to normal execution for error
+	}
+
 	// Check if it's a known subcommand
 	if len(args) > 0 {
-		if args[0] != "set-key" && args[0] != "qq-install" && args[0] != "qq-uninstall" && args[0] != "help" && args[0] != "-h" && args[0] != "--help" && args[0] != "--raw" {
+		if args[0] != "set-key" && args[0] != "qq-install" && args[0] != "qq-uninstall" && args[0] != "help" && args[0] != "-h" && args[0] != "--help" {
 			// Treat as a query
 			userQuery := strings.Join(args, " ")
 			processQuery(userQuery)
@@ -103,6 +115,19 @@ func processQuery(userQuery string) {
 	// Print the command
 	fmt.Printf("\033[32m✅ The command has been copied to your clipboard and is ready to paste:\033[0m\n")
 	fmt.Printf("\033[1m%s\033[0m\n", command)
+}
+
+func processQueryWithRaw(userQuery string) {
+	// Call GROQ API to get the command
+	command, err := callGroqAPI(userQuery)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		os.Exit(1)
+	}
+
+	// Trim whitespace and output only the raw command
+	command = strings.TrimSpace(command)
+	fmt.Print(command)
 }
 
 func init() {
