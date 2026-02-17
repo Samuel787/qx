@@ -60,46 +60,6 @@ qx set-key gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 # Then simply paste and run the source command that was automatically copied to clipboard
 ```
 
-## Development
-
-### Building
-
-```bash
-make build
-```
-
-### Installing Locally
-
-```bash
-make install
-```
-
-### Running in Development Mode
-
-```bash
-make dev
-```
-
-### Running Tests
-
-```bash
-make test
-```
-
-## Commands
-
-- `qx set-key [token]` - Set your GROQ API key in shell configuration
-
-## Homebrew Formula
-
-To publish this to Homebrew, you'll need to create a tap repository and add a formula. See the [Homebrew documentation](https://docs.brew.sh/How-to-Create-and-Maintain-a-Tap) for more details.
-
-### Quick Steps for Homebrew Publishing:
-
-1. Create a repository named `homebrew-tap` on GitHub
-2. Add a `Formula/qx.rb` file with the binary details
-3. Users can install with: `brew tap yourusername/tap && brew install qx`
-
 ## License
 
 MIT License
