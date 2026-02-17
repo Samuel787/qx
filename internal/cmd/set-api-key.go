@@ -85,9 +85,7 @@ func setApiKey(token string) {
 
 	// Inform user
 	fmt.Printf("\033[32m✅ API key has been set. Now, run the following to activate the environment variable:\n\033[0m")
-	// fmt.Printf("")
 	fmt.Printf("\033[1m%s\033[0m\n", sourceCmd)
-	// fmt.Printf("\033[36m💡 The source command has been copied to your clipboard, so just paste it!\033[0m\n")
 }
 
 func init() {
