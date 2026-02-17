@@ -1,7 +1,7 @@
 .PHONY: build install dev clean help
 
 BINARY_NAME=qx
-VERSION?=0.1.0
+VERSION?=$(shell git describe --tags --abbrev=0)
 LDFLAGS=-ldflags "-X main.version=$(VERSION)"
 
 help:
