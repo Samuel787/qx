@@ -65,7 +65,7 @@ func Execute() {
 
 	// Check if it's a known subcommand
 	if len(args) > 0 {
-		if args[0] != "set-key" && args[0] != "qq-install" && args[0] != "help" && args[0] != "-h" && args[0] != "--help" && args[0] != "--raw" {
+		if args[0] != "set-key" && args[0] != "qq-install" && args[0] != "qq-uninstall" && args[0] != "help" && args[0] != "-h" && args[0] != "--help" && args[0] != "--raw" {
 			// Treat as a query
 			userQuery := strings.Join(args, " ")
 			processQuery(userQuery)
