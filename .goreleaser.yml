@@ -1,3 +1,5 @@
+version: 2
+
 project_name: qx
 before:
   hooks:
@@ -15,6 +17,9 @@ builds:
       - arm64
     ldflags:
       - -X main.version={{.Version}}
+  - id: qx
+    main: ./cmd/qx
+    binary: qx
 
 archives:
   - format: tar.gz
