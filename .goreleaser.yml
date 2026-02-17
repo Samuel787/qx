@@ -41,6 +41,7 @@ brews:
     homepage: "https://github.com/Samuel787/qx"
     description: "Terminal command prefiller that uses Groq AI to generate shell commands"
     license: "MIT"
+    template: .build/homebrew/qx.rb.tpl
 
 checksum:
   name_template: "checksums.txt"
