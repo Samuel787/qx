@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var rawOutput bool
+
 var rootCmd = &cobra.Command{
 	Use:   "qx",
 	Short: "Terminal command prefiller",
@@ -32,6 +34,12 @@ var rootCmd = &cobra.Command{
 
 		// Trim whitespace
 		command = strings.TrimSpace(command)
+
+		// If raw output is requested, just print the command and exit
+		if rawOutput {
+			fmt.Print(command)
+			return
+		}
 
 		// Copy to clipboard
 		pbcopyCmd := exec.Command("pbcopy")
@@ -57,7 +65,7 @@ func Execute() {
 
 	// Check if it's a known subcommand
 	if len(args) > 0 {
-		if args[0] != "set-key" && args[0] != "help" && args[0] != "-h" && args[0] != "--help" {
+		if args[0] != "set-key" && args[0] != "qq-install" && args[0] != "help" && args[0] != "-h" && args[0] != "--help" && args[0] != "--raw" {
 			// Treat as a query
 			userQuery := strings.Join(args, " ")
 			processQuery(userQuery)
@@ -99,4 +107,5 @@ func processQuery(userQuery string) {
 
 func init() {
 	rootCmd.Flags().BoolP("help", "h", false, "help for qx")
+	rootCmd.Flags().BoolVarP(&rawOutput, "raw", "r", false, "output only the command without formatting")
 }
