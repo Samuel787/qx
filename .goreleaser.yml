@@ -25,13 +25,13 @@ archives:
 
 brews:
   - repository:
-      owner: yourusername
+      owner: Samuel787
       name: homebrew-tap
     commit_author:
       name: goreleaserbot
       email: bot@goreleaser.com
-    homepage: "https://github.com/yourusername/qx"
-    description: "A command-line tool"
+    homepage: "https://github.com/Samuel787/qx"
+    description: "Terminal command prefiller that uses Groq AI to generate shell commands"
     license: "MIT"
 
 checksum:
