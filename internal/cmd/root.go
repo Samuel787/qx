@@ -57,7 +57,7 @@ var rootCmd = &cobra.Command{
 	SilenceErrors: true,
 }
 
-var Version = "0.1.0"
+var Version = "0.0.0"
 
 func Execute() {
 	// Try to execute as normal first
