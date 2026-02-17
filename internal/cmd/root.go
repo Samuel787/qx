@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var rawOutput bool
+
 var rootCmd = &cobra.Command{
 	Use:   "qx",
 	Short: "Terminal command prefiller",
@@ -33,6 +35,12 @@ var rootCmd = &cobra.Command{
 		// Trim whitespace
 		command = strings.TrimSpace(command)
 
+		// If raw output is requested, just print the command and exit
+		if rawOutput {
+			fmt.Print(command)
+			return
+		}
+
 		// Copy to clipboard
 		pbcopyCmd := exec.Command("pbcopy")
 		pbcopyCmd.Stdin = strings.NewReader(command)
@@ -55,9 +63,21 @@ func Execute() {
 	// Try to execute as normal first
 	args := os.Args[1:]
 
+	// Handle --raw or -r flag at the beginning
+	if len(args) > 0 && (args[0] == "--raw" || args[0] == "-r") {
+		// Check if there are more arguments after the flag
+		if len(args) > 1 {
+			// Treat the rest as a query
+			userQuery := strings.Join(args[1:], " ")
+			processQueryWithRaw(userQuery)
+			return
+		}
+		// If no query provided with --raw, fall through to normal execution for error
+	}
+
 	// Check if it's a known subcommand
 	if len(args) > 0 {
-		if args[0] != "set-key" && args[0] != "help" && args[0] != "-h" && args[0] != "--help" {
+		if args[0] != "set-key" && args[0] != "qq-install" && args[0] != "qq-uninstall" && args[0] != "help" && args[0] != "-h" && args[0] != "--help" {
 			// Treat as a query
 			userQuery := strings.Join(args, " ")
 			processQuery(userQuery)
@@ -97,6 +117,20 @@ func processQuery(userQuery string) {
 	fmt.Printf("\033[1m%s\033[0m\n", command)
 }
 
+func processQueryWithRaw(userQuery string) {
+	// Call GROQ API to get the command
+	command, err := callGroqAPI(userQuery)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		os.Exit(1)
+	}
+
+	// Trim whitespace and output only the raw command
+	command = strings.TrimSpace(command)
+	fmt.Print(command)
+}
+
 func init() {
 	rootCmd.Flags().BoolP("help", "h", false, "help for qx")
+	rootCmd.Flags().BoolVarP(&rawOutput, "raw", "r", false, "output only the command without formatting")
 }

@@ -20,7 +20,6 @@ var helloCmd = &cobra.Command{
 		}
 		text := strings.Join(args, " ")
 		copyToClipboard(text)
-		// fmt.Printf(">>[copied to clipboard>> %s\n", text)
 		fmt.Printf("\033[32m✅ Copied to clipboard:\033[0m %s", text)
 	},
 }
