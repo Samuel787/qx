@@ -29,7 +29,7 @@ var rootCmd = &cobra.Command{
 		command, err := callGroqAPI(userQuery)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
-			os.Exit(1)
+			os.Exit(0)
 		}
 
 		// Trim whitespace
@@ -46,7 +46,7 @@ var rootCmd = &cobra.Command{
 		pbcopyCmd.Stdin = strings.NewReader(command)
 		if err := pbcopyCmd.Run(); err != nil {
 			fmt.Fprintf(os.Stderr, "Error: Could not copy to clipboard\n")
-			os.Exit(1)
+			os.Exit(0)
 		}
 
 		// Print the command
@@ -88,7 +88,7 @@ func Execute() {
 	// Execute as normal cobra command
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
-		os.Exit(1)
+		os.Exit(0)
 	}
 }
 
@@ -98,7 +98,7 @@ func processQuery(userQuery string) {
 	if err != nil {
 		// Print error directly (to stdout for proper ANSI color rendering)
 		fmt.Print(err)
-		os.Exit(1)
+		os.Exit(0)
 	}
 
 	// Trim whitespace
@@ -109,7 +109,7 @@ func processQuery(userQuery string) {
 	pbcopyCmd.Stdin = strings.NewReader(command)
 	if err := pbcopyCmd.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: Could not copy to clipboard\n")
-		os.Exit(1)
+		os.Exit(0)
 	}
 
 	// Print the command
@@ -122,7 +122,7 @@ func processQueryWithRaw(userQuery string) {
 	command, err := callGroqAPI(userQuery)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
-		os.Exit(1)
+		os.Exit(0)
 	}
 
 	// Trim whitespace and output only the raw command

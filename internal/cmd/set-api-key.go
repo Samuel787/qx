@@ -35,14 +35,14 @@ func setApiKey(token string) {
 		sourceCmd = "source ~/.bashrc"
 	} else {
 		fmt.Fprintf(os.Stderr, "Error: Unsupported shell. Please use bash or zsh\n")
-		os.Exit(1)
+		os.Exit(0)
 	}
 
 	// Read existing content
 	content, err := os.ReadFile(rcFile)
 	if err != nil && !os.IsNotExist(err) {
 		fmt.Fprintf(os.Stderr, "Error: Could not read %s\n", rcFile)
-		os.Exit(1)
+		os.Exit(0)
 	}
 
 	// Check if QX_GROQ_KEY already exists
@@ -72,7 +72,7 @@ func setApiKey(token string) {
 	// Write back to file
 	if err := os.WriteFile(rcFile, []byte(fileContent), 0644); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: Could not write to %s\n", rcFile)
-		os.Exit(1)
+		os.Exit(0)
 	}
 
 	// Copy source command to clipboard
@@ -80,7 +80,7 @@ func setApiKey(token string) {
 	pbcopyCmd.Stdin = strings.NewReader(sourceCmd)
 	if err := pbcopyCmd.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: Could not copy to clipboard\n")
-		os.Exit(1)
+		os.Exit(0)
 	}
 
 	// Inform user
