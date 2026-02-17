@@ -20,9 +20,9 @@ builds:
     goarch:
       - amd64
       - arm64
-      
+
     ldflags:
-      - -X main.version={{.Version}}
+      - -X github.com/Samuel787/qx/internal/cmd.Version={{.Version}}
 
 archives:
   - format: tar.gz
