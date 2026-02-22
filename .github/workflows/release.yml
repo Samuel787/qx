@@ -33,7 +33,7 @@ jobs:
           GOARCH: ${{ matrix.goarch }}
         run: |
           mkdir -p dist
-          go build -o dist/qx-${{ matrix.goos }}-${{ matrix.goarch }} .
+          go build -o dist/qx-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/qx
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
