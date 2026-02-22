@@ -21,6 +21,7 @@ go.work
 # Build output
 bin/
 dist/
+.build/
 
 # IDE
 .vscode/
