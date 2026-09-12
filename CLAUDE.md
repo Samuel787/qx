@@ -32,4 +32,4 @@ Local manual testing requires `QX_GROQ_KEY` to be set in the environment (see `q
 
 ## Release process
 
-Releases are cut by GoReleaser (`.goreleaser.yml`) triggered by pushing a `v*` tag, building darwin/linux/windows × amd64/arm64 binaries and publishing to the `Samuel787/homebrew-tap` Homebrew tap. `.github/workflows/build.yml` runs `make build`/`make test` on push/PR across macOS/Linux/Windows; `.github/workflows/release.yml` runs on tag push.
+Push a `v*` tag (e.g. `v0.1.13`) to `main` to cut a release. `.github/workflows/release.yml` runs GoReleaser (`goreleaser/goreleaser-action`) against `.goreleaser.yml`, which builds darwin/linux/windows × amd64/arm64 binaries, creates the GitHub Release, and pushes an updated formula to the `Samuel787/homebrew-tap` Homebrew tap in one step. This requires a `HOMEBREW_TAP_TOKEN` repo secret — a PAT with write access to `Samuel787/homebrew-tap` — since the default `GITHUB_TOKEN` can't push to a different repo. `.github/workflows/build.yml` separately runs `make build`/`make test` on push/PR across macOS/Linux/Windows.

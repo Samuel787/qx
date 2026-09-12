@@ -7,37 +7,26 @@ on:
 
 jobs:
   release:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: write
-    strategy:
-      matrix:
-        goos: [darwin, linux, windows]
-        goarch: [amd64, arm64]
-        exclude:
-          - goos: windows
-            goarch: arm64
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: '1.21'
           cache: false
 
-      - name: Build binary
-        env:
-          GOOS: ${{ matrix.goos }}
-          GOARCH: ${{ matrix.goarch }}
-        run: |
-          mkdir -p dist
-          go build -o dist/qx-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/qx
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v6
         with:
-          files: dist/qx-*
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
