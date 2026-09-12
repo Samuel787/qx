@@ -1,0 +1,21 @@
+.github/workflows/release.yml
+  s_4c15eae80e15e3::t_99a3cdfbe1055c 10,15,20,25-26,28-32
+CLAUDE.md
+  s_4c15eae80e15e3::t_15a73b508e4894 35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.15",
+  "base_commit_sha": "4e0bd534aa562badaca5b0c9b4341494064b098e",
+  "prompts": {},
+  "sessions": {
+    "s_4c15eae80e15e3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cfc52cd8-4631-4590-89fb-351b1d3e7e55",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "samuel.sutherdavid <samuel.sutherdavid@foodpanda.com>"
+    }
+  }
+}
